@@ -45,7 +45,7 @@ def main_menu():
     dart1 = Entity(
         model=r"models\darts\models_compressed\dart1.obj",
         scale=(100),
-        rotation=(-10, 25, 0),
+        rotation=(-10, 25, 20),
         position=(0, 0.2, 0)
     )
 
