@@ -55,7 +55,7 @@ app = Ursina(
 )
 
 Text.default_font = r"arial_unicode_ms\arial_unicode_ms_bold.otf"
-Text.resolution = 100
+Text.resolution = 200
 
 main_menu()
 test_text = ""
