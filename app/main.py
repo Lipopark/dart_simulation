@@ -13,10 +13,10 @@ def main_menu():
 
     settings_button = Button(
         text="Einstellungen",
-        parent=camera.ui,  # <-- geändert
-        position=(0.55, -0.35),  # eigene Position
+        parent=camera.ui,
+        position=(0.55, -0.35),
         color=rgb(112/255, 146/255, 190/255),
-        scale=(0.35, 0.125),  # gleiche Skalierung wie Start-Button
+        scale=(0.35, 0.125),
         text_size=1.5,
         text_origin=(0, -0.01)
     )
@@ -24,10 +24,8 @@ def main_menu():
 
 app = Ursina()
 
-
-# Text.size = 0.04
 Text.default_font = "poppins\Poppins-Bold.ttf"
-# Text.resolution = 100
+Text.resolution = 100
 
 main_menu()
 
