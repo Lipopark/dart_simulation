@@ -21,6 +21,8 @@ def main_menu():
         text_origin=(0, -0.01)
     )
 
+    dart1 = Entity(model="dart1.blend")
+
 
 app = Ursina()
 
