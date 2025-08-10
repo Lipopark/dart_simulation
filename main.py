@@ -50,6 +50,14 @@ def main_menu():
         position=(0, 0.2, 0)
     )
 
+    dart2 = Entity(
+        model=r"models_compressed\dart2\dart2.obj",
+        # model=r"models_compressed\dart1\dart2.obj",
+        scale=(100),
+        rotation=(-10, 25, 20),
+        position=(1, 0.2, 0)
+    )
+
 
 app = Ursina(
     title="Dartwurf Simulation"
