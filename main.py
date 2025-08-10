@@ -1,4 +1,5 @@
 from ursina import *
+from ursina.shaders import lit_with_shadows_shader
 
 
 def main_menu():
@@ -54,9 +55,11 @@ app = Ursina(
     title="Dartwurf Simulation"
 )
 
-Text.default_font = r"arial_unicode_ms\arial_unicode_ms_bold.otf"
+Entity.default_shader = lit_with_shadows_shader
+Text.default_font = r"fonts\arial_unicode_ms_bold.otf"
 Text.resolution = 200
+EditorCamera()
 
 main_menu()
-test_text = ""
+
 app.run()
