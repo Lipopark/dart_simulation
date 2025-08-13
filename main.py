@@ -3,6 +3,34 @@ from ursina.shaders import lit_with_shadows_shader
 
 
 def main_menu():
+
+    def switch_r():
+        global selected_dart
+        global x
+        x += 1
+        selected_dart.position = -10, 0.2, 0
+        selected_dart = darts_list[x]
+        selected_dart.position = 0, 0.2, 0
+        switch_l_button.collision = True
+        if x == 1:
+            switch_r_button.collision = False
+
+    def switch_l():
+        global selected_dart
+        global x
+        x -= 1
+        selected_dart.position = 7, 0.2, 0
+        selected_dart = darts_list[x]
+        selected_dart.position = 0, 0.2, 0
+        switch_r_button.collision = True
+        if x == 0:
+            switch_l_button.collision = False
+
+    def start():
+        for y in main_menu_entities:
+            y.enabled = False
+            selected_dart.enabled = True
+
     start_button = Button(
         text="Start",
         parent=camera.ui,
@@ -59,33 +87,14 @@ def main_menu():
 
     global darts_list
     darts_list = [dart1, dart2]
+    main_menu_entities = [start_button, settings_button,
+                          switch_r_button, switch_l_button]
+    main_menu_entities += darts_list
     darts_list[0]
     switch_l_button.collision = False
-
-    def switch_r():
-        global selected_dart
-        global x
-        x += 1
-        selected_dart.position = -10, 0.2, 0
-        selected_dart = darts_list[x]
-        selected_dart.position = 0, 0.2, 0
-        switch_l_button.collision = True
-        if x == 1:
-            switch_r_button.collision = False
-
-    def switch_l():
-        global selected_dart
-        global x
-        x -= 1
-        selected_dart.position = 7, 0.2, 0
-        selected_dart = darts_list[x]
-        selected_dart.position = 0, 0.2, 0
-        switch_r_button.collision = True
-        if x == 0:
-            switch_l_button.collision = False
-
     switch_r_button.on_click = switch_r
     switch_l_button.on_click = switch_l
+    start_button.on_click = start
 
 
 app = Ursina(
@@ -97,10 +106,11 @@ x = 0
 Entity.default_shader = lit_with_shadows_shader
 Text.default_font = r"fonts\arial_unicode_ms_bold.otf"
 Text.resolution = 200
-# EditorCamera()
+EditorCamera()
 
 
 main_menu()
+
 selected_dart = darts_list[0]
 
 app.run()
