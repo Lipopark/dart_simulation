@@ -71,6 +71,14 @@ def main_menu():
         text_origin=(0, -0.1)
     )
 
+    board = Entity(
+        model=r"models_compressed\board\board.obj",
+        texture=r"\models\board\board_picture.jpg",
+        scale=(100),
+        position=(0, 0, 460),
+        rotation=(0, 90, 0)
+    )
+
     dart1 = Entity(
         model=r"models_compressed\darts\dart1\dart1.obj",
         scale=(100),
