@@ -106,7 +106,7 @@ x = 0
 Entity.default_shader = lit_with_shadows_shader
 Text.default_font = r"fonts\arial_unicode_ms_bold.otf"
 Text.resolution = 200
-# EditorCamera()
+EditorCamera()
 
 
 main_menu()
