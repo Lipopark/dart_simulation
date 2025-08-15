@@ -1,5 +1,5 @@
 from ursina import *
-from ursina.shaders import lit_with_shadows_shader
+from ursina.shaders import *
 
 
 def main_menu():
@@ -72,14 +72,14 @@ def main_menu():
     )
 
     dart1 = Entity(
-        model=r"models_compressed\dart1\dart1.obj",
+        model=r"models_compressed\darts\dart1\dart1.obj",
         scale=(100),
         rotation=(-10, 25, 20),
         position=(0, 0.2, 0)
     )
 
     dart2 = Entity(
-        model=r"models_compressed\dart2\dart2.obj",
+        model=r"models_compressed\darts\dart2\dart2.obj",
         scale=(100),
         rotation=(-10, 25, 20),
         position=(7, 0.2, 0)
@@ -106,7 +106,7 @@ x = 0
 Entity.default_shader = lit_with_shadows_shader
 Text.default_font = r"fonts\arial_unicode_ms_bold.otf"
 Text.resolution = 200
-EditorCamera()
+# EditorCamera()
 
 
 main_menu()
