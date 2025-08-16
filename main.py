@@ -6,6 +6,8 @@ def main_menu():
 
     def switch_r():
         global selected_dart
+
+        # Der x-te Dart ist immer der ausgewählte Dart
         global x
         x += 1
         selected_dart.position = -10, 0.2, 0
@@ -27,9 +29,17 @@ def main_menu():
             switch_l_button.collision = False
 
     def start():
+
+        # Alle Menu Entities werden deaktiviert
         for y in main_menu_entities:
             y.enabled = False
+
+            # Der ausgewählte Dart wird in Startposition gebracht
+            selected_dart.scale = 1
+            selected_dart.position = (0.12, 0, -20)
+            selected_dart.rotation = (67, 180, 0)
             selected_dart.enabled = True
+        board.enabled = True
 
     start_button = Button(
         text="Start",
@@ -74,10 +84,12 @@ def main_menu():
     board = Entity(
         model=r"models_compressed\board\board.obj",
         texture=r"\models\board\board_picture.jpg",
-        scale=(100),
-        position=(0, 0, 460),
-        rotation=(0, 90, 0)
+        scale=(1),
+        rotation=(0, 90, 0),
+        position=(0, 0, -17.74),
     )
+
+    board.enabled = False
 
     dart1 = Entity(
         model=r"models_compressed\darts\dart1\dart1.obj",
@@ -98,6 +110,8 @@ def main_menu():
     main_menu_entities = [start_button, settings_button,
                           switch_r_button, switch_l_button]
     main_menu_entities += darts_list
+
+    # Beim Start wird standartmässig der erste Dart angezeigt und der Switch Button nach links deaktiviert
     darts_list[0]
     switch_l_button.collision = False
     switch_r_button.on_click = switch_r
@@ -111,6 +125,8 @@ app = Ursina(
 
 
 x = 0
+
+# Shader wird gesetzt und die Schriftanzeige
 Entity.default_shader = lit_with_shadows_shader
 Text.default_font = r"fonts\arial_unicode_ms_bold.otf"
 Text.resolution = 200
