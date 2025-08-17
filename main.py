@@ -144,7 +144,6 @@ app = Ursina(
     title="Dartwurf Simulation"
 )
 
-
 x = 0
 color_buttons = rgb(112/255, 146/255, 190/255)
 
@@ -153,6 +152,7 @@ Entity.default_shader = lit_with_shadows_shader
 Text.default_font = r"fonts\arial_unicode_ms_bold.otf"
 Text.resolution = 200
 EditorCamera()
+window.fullscreen = True
 
 
 main_menu()
