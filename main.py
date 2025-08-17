@@ -56,6 +56,7 @@ def main_menu():
             # Bei Kollision mit dem Board wird die Update Funktion beendet
             if selected_dart.intersects(board):
                 selected_dart.update = False
+                back_to_menu_button.enabled = True
 
         selected_dart.update = update
 
@@ -99,6 +100,18 @@ def main_menu():
         text_origin=(0, -0.1)
     )
 
+    back_to_menu_button = Button(
+        text="Zurück zum\nHauptmenü",
+        parent=camera.ui,
+        position=(0.55, -0.35),
+        color=color_buttons,
+        scale=(0.35, 0.125),
+        text_size=1.5,
+        text_origin=(0, -0.01),
+    )
+
+    back_to_menu_button.enabled = False
+
     board = Entity(
         model=r"models_compressed\board\board.obj",
         texture=r"\models\board\board_picture.jpg",
@@ -138,6 +151,7 @@ def main_menu():
     switch_r_button.on_click = switch_r
     switch_l_button.on_click = switch_l
     start_button.on_click = start
+    # back_to_menu_button.on_click = back_to_menu
 
 
 app = Ursina(
