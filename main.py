@@ -37,7 +37,7 @@ def main_menu():
         # Der ausgewählte Dart wird in Startposition gebracht
         selected_dart.scale = 1
         selected_dart.position = (0.12, 0, -20)
-        selected_dart.rotation = (67, 178, 0)
+        selected_dart.rotation = (67, 176.9, 0)
         selected_dart.enabled = True
         selected_dart.x_rot_speed = 10
 
@@ -45,18 +45,16 @@ def main_menu():
         board.enabled = True
 
         # Animation startet
-        def update_phase1():
-            selected_dart.position -= selected_dart.forward / 10
+        def update():
+            selected_dart.position -= selected_dart.forward / 9.35
             selected_dart.rotation_x -= selected_dart.x_rot_speed
             if selected_dart.rotation_x <= 13:
                 selected_dart.x_rot_speed = 2
+            if selected_dart.intersects(board):
+                selected_dart.update = False
 
-            if selected_dart.z >= -16.74:
-                selected_dart.position = selected_dart.forward * 0
-                selected_dart.x_rot_speed = 0
-                print_on_screen(selected_dart.z)
-
-        selected_dart.update = update_phase1
+        selected_dart.update = update
+        print_on_screen("fertig")
 
     start_button = Button(
         text="Start",
@@ -104,17 +102,19 @@ def main_menu():
         scale=(1),
         rotation=(0, 90, 0),
         position=(0, 0, -17.74),
+        collider="box"
     )
-    board.collider = "mesh"
+    # board.collider = "mesh"
     board.enabled = False
 
     dart1 = Entity(
         model=r"models_compressed\darts\dart1\dart1.obj",
         scale=(100),
         rotation=(-10, 25, 20),
-        position=(0, 0.2, 0)
+        position=(0, 0.2, 0),
+        collider="box"
     )
-    dart1.collider = "mesh"
+    # dart1.collider = "mesh"
 
     dart2 = Entity(
         model=r"models_compressed\darts\dart2\dart2.obj",
