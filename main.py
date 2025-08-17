@@ -48,19 +48,22 @@ def main_menu():
         def update():
             selected_dart.position -= selected_dart.forward / 9.35
             selected_dart.rotation_x -= selected_dart.x_rot_speed
+
+            # Übergang von Phase 1 des Wurfs in Phase 2 wird überprüft
             if selected_dart.rotation_x <= 13:
                 selected_dart.x_rot_speed = 2
+
+            # Bei Kollision mit dem Board wird die Update Funktion beendet
             if selected_dart.intersects(board):
                 selected_dart.update = False
 
         selected_dart.update = update
-        print_on_screen("fertig")
 
     start_button = Button(
         text="Start",
         parent=camera.ui,
         position=(0, -0.35),
-        color=rgb(112/255, 146/255, 190/255),
+        color=color_buttons,
         scale=(0.4, 0.175),
         text_size=2.5,
         text_origin=(0, -0.05)
@@ -70,7 +73,7 @@ def main_menu():
         text="Einstellungen",
         parent=camera.ui,
         position=(0.55, -0.35),
-        color=rgb(112/255, 146/255, 190/255),
+        color=color_buttons,
         scale=(0.35, 0.125),
         text_size=1.5,
         text_origin=(0, -0.01)
@@ -80,7 +83,7 @@ def main_menu():
         text="▶",
         parent=camera.ui,
         position=(0.6, 0.1),
-        color=rgb(112/255, 146/255, 190/255),
+        color=color_buttons,
         scale=(0.1),
         text_size=2,
         text_origin=(0, -0.1)
@@ -90,7 +93,7 @@ def main_menu():
         text="◀",
         parent=camera.ui,
         position=(-0.6, 0.1),
-        color=rgb(112/255, 146/255, 190/255),
+        color=color_buttons,
         scale=(0.1),
         text_size=2,
         text_origin=(0, -0.1)
@@ -104,7 +107,7 @@ def main_menu():
         position=(0, 0, -17.74),
         collider="box"
     )
-    # board.collider = "mesh"
+
     board.enabled = False
 
     dart1 = Entity(
@@ -114,15 +117,14 @@ def main_menu():
         position=(0, 0.2, 0),
         collider="box"
     )
-    # dart1.collider = "mesh"
 
     dart2 = Entity(
         model=r"models_compressed\darts\dart2\dart2.obj",
         scale=(100),
         rotation=(-10, 25, 20),
-        position=(7, 0.2, 0)
+        position=(7, 0.2, 0),
+        collider="box"
     )
-    dart2.collider = "mesh"
 
     global darts_list
     darts_list = [dart1, dart2]
@@ -144,8 +146,9 @@ app = Ursina(
 
 
 x = 0
+color_buttons = rgb(112/255, 146/255, 190/255)
 
-# Shader wird gesetzt und die Schriftanzeige
+# Shader und die Schriftanzeige werden gesetzt
 Entity.default_shader = lit_with_shadows_shader
 Text.default_font = r"fonts\arial_unicode_ms_bold.otf"
 Text.resolution = 200
