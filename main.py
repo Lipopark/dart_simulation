@@ -52,11 +52,19 @@ def switch_l():
 
 
 def camera_position_r():
-    pass
+    global i_camera_position
+    i_camera_position += 1
+    if i_camera_position > 1:
+        i_camera_position = 0
+    camera_position_text.text = camera_positions_list[i_camera_position]
 
 
 def camera_position_l():
-    pass
+    global i_camera_position
+    i_camera_position -= 1
+    if i_camera_position < 0:
+        i_camera_position = 1
+    camera_position_text.text = camera_positions_list[i_camera_position]
 
 
 def back_to_menu():
@@ -69,6 +77,9 @@ def back_to_menu():
     selected_dart.position = (0, 0.2, 0)
     selected_dart.rotation = (-10, 25, 20)
     selected_dart.enabled = False
+    # Kamera wird zurückgesetzt
+    camera.position = (0, 0, -19.4)
+    camera.rotation = (0, 0, 0)
     main_menu()
 
 
@@ -76,6 +87,11 @@ def start():
     # Alle Menu Entities werden deaktiviert
     for y in main_menu_entities:
         y.enabled = False
+
+    # Wenn die Kameraperspektive verändert wurde, wird sie hier positioniert
+    if i_camera_position == 1:
+        camera.position = (-4, 0, -17.8)
+        camera.rotation = (0, 90, 0)
 
     # Der ausgewählte Dart wird in Startposition gebracht
     selected_dart.scale = 1
@@ -144,6 +160,8 @@ Text.resolution = 200
 window.fullscreen = True
 
 color_buttons = rgb(112/255, 146/255, 190/255)
+i_camera_position = 0
+
 start_button = Button(
     text="Start",
     parent=camera.ui,
@@ -243,6 +261,8 @@ camera_position_l_button = Button(
     text_origin=(0, -0.4)
 )
 
+camera_position_l_button.on_click = camera_position_l
+
 camera_position_text = Text(
     text="Frontal",
     parent=camera.ui,
@@ -250,8 +270,6 @@ camera_position_text = Text(
     scale=1,
     origin=(0, 0.5),
 )
-
-camera_position_l_button.on_click = camera_position_l
 
 back_to_menu_button = Button(
     text="Zurück zum\nHauptmenü",
@@ -327,6 +345,7 @@ def input(key):
 
 x = 0
 
+
 darts_list = [dart1, dart2]
 main_menu_entities = [start_button, settings_button,
                       quit_button, switch_r_button, switch_l_button]
@@ -336,6 +355,9 @@ settings_entities = [settings_title, camera_position_r_button,
                      camera_position_l_button, back_to_menu_button, camera_position_title, camera_position_text]
 for y in settings_entities:
     y.enabled = False
+
+camera_positions_list = ["Frontal", "Seitwärts", "3"]
+camera_position = camera_positions_list[0]
 
 main_menu()
 
