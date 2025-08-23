@@ -95,7 +95,8 @@ def start():
 
     # Der ausgewählte Dart wird in Startposition gebracht
     selected_dart.scale = 1
-    selected_dart.position = (0.12, 0, -19)
+    # selected_dart.position = (0.12, 0, -19)
+    selected_dart.position = (0.12, -0.2, -19)
     selected_dart.rotation = (45, 176.9, 0)
     selected_dart.enabled = True
 
@@ -119,30 +120,31 @@ def start():
             back_to_menu_button.enabled = True"""
 
     selected_dart.x_rot_speed = 10
-    selected_dart.a = 0.01
+    selected_dart.a = 0.1
+    selected_dart.y_reduction = 1
 
     def update():
+        # Übergang von Phase 1 des Wurfs in Phase 2 wird überprüft
+        # if selected_dart.z <= -18.519989013671875:
+        if selected_dart.rotation_x >= 0:
+            # Phase 1
+            selected_dart.position += selected_dart.back * 0.03 * speed
+            selected_dart.rotation_x -= 0.5
+
+        else:
+            selected_dart.rotation_x = 0
+            selected_dart.update = False
+            selected_dart.update = update_phase_2
+
+    def update_phase_2():
         # Kollision mit Board ca. bei selected_dart.x = 0.0953
         if selected_dart.intersects(board):
             selected_dart.update = False
             back_to_menu_button.enabled = True
         else:
-            # Übergang von Phase 1 des Wurfs in Phase 2 wird überprüft
-            # if selected_dart.rotation_x >= 13:
-
-            if selected_dart.z <= -18.7:
-                # Phase 1
-                selected_dart.position -= selected_dart.forward / 9.35
-                selected_dart.rotation_x -= selected_dart.x_rot_speed
-
-            else:
-                # Phase 2
-                selected_dart.z += 0.1
-                selected_dart.y += selected_dart.a
-                selected_dart.a -= 0.0005
-                selected_dart.rotation_x += 1
-
-                # selected_dart.rotation_x -= selected_dart.x_rot_speed
+            # Phase 2
+            selected_dart.position += selected_dart.back / 10
+            selected_dart.rotation_x
 
     selected_dart.update = update
 
@@ -158,6 +160,8 @@ Text.default_font = r"fonts\arial_unicode_ms_bold.otf"
 Text.resolution = 200
 # EditorCamera()
 window.fullscreen = True
+
+speed = 0.1
 
 color_buttons = rgb(112/255, 146/255, 190/255)
 i_camera_position = 0
@@ -325,9 +329,6 @@ def input(key):
     if key == "w":
         camera.position += camera.forward
 
-    if key == "s":
-        camera.position += camera.back
-
     if key == "a":
         camera.position += camera.left
 
@@ -341,6 +342,24 @@ def input(key):
     if key == "r":
         camera.position = (0, 0, -19.4)
         camera.rotation = (0, 0, 0)
+
+    if key == "space" and start_button.enabled == True:
+        start()
+
+    if key == "s" and start_button.enabled == True:
+        settings()
+
+    if key == "escape" and back_to_menu_button.enabled == False:
+        quit()
+
+    if key == "escape" and back_to_menu_button.enabled == True:
+        back_to_menu()
+
+    if key == "left arrow" and switch_l_button.collision == True:
+        switch_l()
+
+    if key == "right arrow" and switch_r_button.collision == True:
+        switch_r()
 
 
 x = 0
@@ -356,7 +375,7 @@ settings_entities = [settings_title, camera_position_r_button,
 for y in settings_entities:
     y.enabled = False
 
-camera_positions_list = ["Frontal", "Seitwärts", "3"]
+camera_positions_list = ["Frontal", "Seitwärts"]
 camera_position = camera_positions_list[0]
 
 main_menu()
