@@ -103,33 +103,18 @@ def start():
     # Board wird angezeigt
     board.enabled = True
 
+    selected_dart.throw_dir = selected_dart.back.normalized()
+    rot_per_unit = 83
     # Animation startet
 
-    """def update():
-        pass
-        selected_dart.position -= selected_dart.forward / 9.35
-        selected_dart.rotation_x -= selected_dart.x_rot_speed
-
-        # Übergang von Phase 1 des Wurfs in Phase 2 wird überprüft
-        if selected_dart.rotation_x <= 13:
-            selected_dart.x_rot_speed = 1.5
-
-        # Bei Kollision mit dem Board wird die Update Funktion beendet
-        if selected_dart.intersects(board):
-            selected_dart.update = False
-            back_to_menu_button.enabled = True"""
-
-    selected_dart.x_rot_speed = 10
-    selected_dart.a = 0.1
-    selected_dart.y_reduction = 1
-
     def update():
+        distance_per_frame = speed * time.dt
         # Übergang von Phase 1 des Wurfs in Phase 2 wird überprüft
         # if selected_dart.z <= -18.519989013671875:
         if selected_dart.rotation_x >= 0:
             # Phase 1
-            selected_dart.position += selected_dart.back * 0.03 * speed
-            selected_dart.rotation_x -= 0.5
+            selected_dart.position += selected_dart.throw_dir * distance_per_frame
+            selected_dart.rotation_x -= rot_per_unit * distance_per_frame
 
         else:
             selected_dart.rotation_x = 0
@@ -143,7 +128,7 @@ def start():
             back_to_menu_button.enabled = True
         else:
             # Phase 2
-            selected_dart.position += selected_dart.back / 10
+            selected_dart.position += selected_dart.back * speed * time.dt
             selected_dart.rotation_x
 
     selected_dart.update = update
@@ -164,7 +149,7 @@ window.fullscreen = True
 speed = 0.1
 
 color_buttons = rgb(112/255, 146/255, 190/255)
-i_camera_position = 0
+i_camera_position = 1
 
 start_button = Button(
     text="Start",
