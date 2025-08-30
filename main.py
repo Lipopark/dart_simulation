@@ -6,7 +6,7 @@ import math
 def main_menu():
     global darts_list
     # Ist der erste Dart ausgewählt, wird der Button nach links deaktiviert
-    if x == 0:
+    if i_selected_dart == 0:
         switch_l_button.collision = False
     else:
         switch_l_button.collision = True
@@ -28,27 +28,25 @@ def settings():
 
 def switch_r():
     global selected_dart
-
-    # Der x-te Dart ist immer der ausgewählte Dart
-    global x
-    x += 1
+    global i_selected_dart
+    i_selected_dart += 1
     selected_dart.position = -10, 0.2, 0
-    selected_dart = darts_list[x]
+    selected_dart = darts_list[i_selected_dart]
     selected_dart.position = 0, 0.2, 0
     switch_l_button.collision = True
-    if x == 1:
+    if i_selected_dart == 1:
         switch_r_button.collision = False
 
 
 def switch_l():
     global selected_dart
-    global x
-    x -= 1
+    global i_selected_dart
+    i_selected_dart -= 1
     selected_dart.position = 7, 0.2, 0
-    selected_dart = darts_list[x]
+    selected_dart = darts_list[i_selected_dart]
     selected_dart.position = 0, 0.2, 0
     switch_r_button.collision = True
-    if x == 0:
+    if i_selected_dart == 0:
         switch_l_button.collision = False
 
 
@@ -118,21 +116,19 @@ def start():
     # Der ausgewählte Dart wird in Startposition gebracht
     selected_dart.scale = 1
     selected_dart.position = (0, 0.112, -18.717)
-    # selected_dart.position = (0.12, -0.172, -19)
     selected_dart.rotation = (13, 176.9, 0)
     selected_dart.enabled = True
 
-    # Board wird angezeigt
     board.enabled = True
-
     back_to_menu_button.enabled = True
 
+    # Definition für Flugkurve
     def curve_function(b):
         pos = lerp(start_pos, target_pos, b)
         pos.y += 0.1 * math.sin(b * math.pi)
         return pos
 
-    start_pos = Vec3(0.12, 0.112, -18.717)
+    start_pos = Vec3(0.12, 0.112, -19)
     target_pos = Vec3(0, 0.112, -16.801)
     global b
     b = 0
@@ -162,12 +158,13 @@ Text.resolution = 200
 # EditorCamera()
 window.fullscreen = True
 
-speed = 1
-
-speed_list = [1.0, 0.1, 0.25, 0.5, 0.75]
 color_buttons = rgb(112/255, 146/255, 190/255)
+i_selected_dart = 0
 i_camera_position = 0
+camera_positions_list = ["Frontal", "Seitwärts"]
+speed = 1
 i_speed = 0
+speed_list = [1.0, 0.1, 0.25, 0.5, 0.75]
 
 start_button = Button(
     text="Start",
@@ -406,9 +403,6 @@ def input(key):
         switch_r()
 
 
-x = 0
-
-
 darts_list = [dart1, dart2]
 main_menu_entities = [start_button, settings_button,
                       quit_button, switch_r_button, switch_l_button]
@@ -419,11 +413,8 @@ settings_entities = [settings_title, camera_position_r_button,
 for y in settings_entities:
     y.enabled = False
 
-camera_positions_list = ["Frontal", "Seitwärts"]
-camera_position = camera_positions_list[0]
+selected_dart = darts_list[0]
 
 main_menu()
-
-selected_dart = darts_list[0]
 
 app.run()
