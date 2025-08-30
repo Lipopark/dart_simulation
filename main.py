@@ -1,5 +1,6 @@
 from ursina import *
 from ursina.shaders import *
+import math
 
 
 def main_menu():
@@ -70,6 +71,7 @@ def camera_position_l():
 def back_to_menu():
     # Alles wird zurückgesetzt, damit es wieder wie im Hauptmenü aussieht. Der ausgewählte Dart bleibt aber ausgewählt
     back_to_menu_button.enabled = False
+    selected_dart.update = False
     for y in settings_entities:
         y.enabled = False
     board.enabled = False
@@ -95,41 +97,35 @@ def start():
 
     # Der ausgewählte Dart wird in Startposition gebracht
     selected_dart.scale = 1
-    # selected_dart.position = (0.12, 0, -19)
-    selected_dart.position = (0.12, -0.2, -19)
-    selected_dart.rotation = (45, 176.9, 0)
+    selected_dart.position = (0, 0.11109747, -18.717)
+    # selected_dart.position = (0.12, -0.172, -19)
+    selected_dart.rotation = (13, 176.9, 0)
     selected_dart.enabled = True
 
     # Board wird angezeigt
     board.enabled = True
 
-    selected_dart.throw_dir = selected_dart.back.normalized()
-    rot_per_unit = 83
-    # Animation startet
+    back_to_menu_button.enabled = True
+
+    def curve_function(b):
+        pos = lerp(start_pos, target_pos, b)
+        pos.y += 0.1 * math.sin(b * math.pi)
+        return pos
+
+    start_pos = Vec3(0.12, 0.11109747, -18.717)
+    target_pos = Vec3(0, 0.11109747, -16.801)
+    global b
+    b = 0
 
     def update():
-        distance_per_frame = speed * time.dt
-        # Übergang von Phase 1 des Wurfs in Phase 2 wird überprüft
-        # if selected_dart.z <= -18.519989013671875:
-        if selected_dart.rotation_x >= 0:
-            # Phase 1
-            selected_dart.position += selected_dart.throw_dir * distance_per_frame
-            selected_dart.rotation_x -= rot_per_unit * distance_per_frame
+        global b
+        if b <= 1:
+            selected_dart.position = curve_function(b)
+            b += speed / 20
 
         else:
-            selected_dart.rotation_x = 0
+            selected_dart.position = curve_function(b=1)
             selected_dart.update = False
-            selected_dart.update = update_phase_2
-
-    def update_phase_2():
-        # Kollision mit Board ca. bei selected_dart.x = 0.0953
-        if selected_dart.intersects(board):
-            selected_dart.update = False
-            back_to_menu_button.enabled = True
-        else:
-            # Phase 2
-            selected_dart.position += selected_dart.back * speed * time.dt
-            selected_dart.rotation_x
 
     selected_dart.update = update
 
@@ -146,7 +142,7 @@ Text.resolution = 200
 # EditorCamera()
 window.fullscreen = True
 
-speed = 0.1
+speed = 1
 
 color_buttons = rgb(112/255, 146/255, 190/255)
 i_camera_position = 1
