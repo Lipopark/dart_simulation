@@ -68,6 +68,26 @@ def camera_position_l():
     camera_position_text.text = camera_positions_list[i_camera_position]
 
 
+def speed_r():
+    global i_speed
+    global speed
+    i_speed += 1
+    if i_speed > 4:
+        i_speed = 0
+    speed_text.text = speed_list[i_speed]
+    speed = speed_list[i_speed]
+
+
+def speed_l():
+    global i_speed
+    global speed
+    i_speed -= 1
+    if i_speed < 0:
+        i_speed = 4
+    speed_text.text = speed_list[i_speed]
+    speed = speed_list[i_speed]
+
+
 def back_to_menu():
     # Alles wird zurückgesetzt, damit es wieder wie im Hauptmenü aussieht. Der ausgewählte Dart bleibt aber ausgewählt
     back_to_menu_button.enabled = False
@@ -97,7 +117,7 @@ def start():
 
     # Der ausgewählte Dart wird in Startposition gebracht
     selected_dart.scale = 1
-    selected_dart.position = (0, 0.11109747, -18.717)
+    selected_dart.position = (0, 0.112, -18.717)
     # selected_dart.position = (0.12, -0.172, -19)
     selected_dart.rotation = (13, 176.9, 0)
     selected_dart.enabled = True
@@ -112,8 +132,8 @@ def start():
         pos.y += 0.1 * math.sin(b * math.pi)
         return pos
 
-    start_pos = Vec3(0.12, 0.11109747, -18.717)
-    target_pos = Vec3(0, 0.11109747, -16.801)
+    start_pos = Vec3(0.12, 0.112, -18.717)
+    target_pos = Vec3(0, 0.112, -16.801)
     global b
     b = 0
 
@@ -144,8 +164,10 @@ window.fullscreen = True
 
 speed = 1
 
+speed_list = [1.0, 0.1, 0.25, 0.5, 0.75]
 color_buttons = rgb(112/255, 146/255, 190/255)
-i_camera_position = 1
+i_camera_position = 0
+i_speed = 0
 
 start_button = Button(
     text="Start",
@@ -256,6 +278,47 @@ camera_position_text = Text(
     origin=(0, 0.5),
 )
 
+speed_title = Text(
+    text="Wiedergabegeschwindigkeit:",
+    parent=camera.ui,
+    position=(-0.2, 0.22),
+    scale=1,
+    origin=(0, 0.5),
+)
+
+speed_r_button = Button(
+    text="\n▶\n",
+    parent=camera.ui,
+    position=(0.3, 0.21),
+    color=color_buttons,
+    scale=(0.05),
+    text_size=2,
+    text_origin=(0, -0.4)
+)
+
+speed_r_button.on_click = speed_r
+
+speed_l_button = Button(
+    text="\n◀\n",
+    parent=camera.ui,
+    position=(0.06, 0.21),
+    color=color_buttons,
+    scale=(0.05),
+    text_size=2,
+    text_origin=(0, -0.4)
+)
+
+speed_l_button.on_click = speed_l
+
+speed_text = Text(
+    text="1.0",
+    parent=camera.ui,
+    position=(0.18, 0.22),
+    scale=1,
+    origin=(0, 0.5),
+)
+
+
 back_to_menu_button = Button(
     text="Zurück zum\nHauptmenü",
     parent=camera.ui,
@@ -352,7 +415,7 @@ main_menu_entities = [start_button, settings_button,
 main_menu_entities += darts_list
 
 settings_entities = [settings_title, camera_position_r_button,
-                     camera_position_l_button, back_to_menu_button, camera_position_title, camera_position_text]
+                     camera_position_l_button, back_to_menu_button, camera_position_title, camera_position_text, speed_r_button, speed_l_button, speed_title, speed_text]
 for y in settings_entities:
     y.enabled = False
 
