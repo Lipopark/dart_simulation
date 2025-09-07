@@ -1,4 +1,4 @@
-from ursina import *
+from ursina import Ursina, Entity, Text, Button, Vec3, camera, window, lerp, rgb, print_on_screen
 from ursina.shaders import *
 import math
 
@@ -342,6 +342,7 @@ board.enabled = False
 
 dart1 = Entity(
     model=r"models_compressed\darts\dart1\dart1.obj",
+    # model="dart1_copy_test.blend",
     scale=(100),
     rotation=(-10, 25, 20),
     position=(0, 0.2, 0),
