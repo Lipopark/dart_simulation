@@ -116,7 +116,7 @@ def start():
     # Der ausgewählte Dart wird in Startposition gebracht
     selected_dart.scale = 1
     selected_dart.position = (0, 0.112, -18.717)
-    selected_dart.rotation = (13, 176.9, 0)
+    selected_dart.rotation = (2, 176.9, 0)
     selected_dart.enabled = True
 
     board.enabled = True
@@ -129,7 +129,7 @@ def start():
         return pos
 
     start_pos = Vec3(0.12, 0.112, -19)
-    target_pos = Vec3(0, 0.112, -16.801)
+    target_pos = Vec3(0, 0.112, -16.79)
     global b
     b = 0
 
@@ -315,7 +315,6 @@ speed_text = Text(
     origin=(0, 0.5),
 )
 
-
 back_to_menu_button = Button(
     text="Zurück zum\nHauptmenü",
     parent=camera.ui,
@@ -330,8 +329,8 @@ back_to_menu_button.on_click = back_to_menu
 
 board = Entity(
     model=r"models_compressed\board\board.obj",
-    # model=r"models_compressed\board\board_distance.obj",
-    texture=r"\models\board\board_picture.jpg",
+    # model="board.blend",
+    # texture=r"\models\board\board_picture.jpg",
     scale=(1),
     rotation=(0, 90, 0),
     position=(0, 0, -16.74),
@@ -351,6 +350,7 @@ dart1 = Entity(
 
 dart2 = Entity(
     model=r"models_compressed\darts\dart2\dart2.obj",
+    # model="dart2_copy_test.blend",
     scale=(100),
     rotation=(-10, 25, 20),
     position=(7, 0.2, 0),
