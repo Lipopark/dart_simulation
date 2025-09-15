@@ -87,6 +87,26 @@ def speed_l():
     speed = speed_list[i_speed]
 
 
+def angle_r():
+    global i_angle
+    global angle
+    i_angle += 1
+    if i_angle > 2:
+        i_angle = 0
+    angle_text.text = angle_list[i_angle]
+    angle = angle_list_values[i_angle]
+
+
+def angle_l():
+    global i_angle
+    global angle
+    i_angle -= 1
+    if i_angle < 0:
+        i_angle = 2
+    angle_text.text = angle_list[i_angle]
+    angle = angle_list_values[i_angle]
+
+
 def back_to_menu():
     # Alles wird zurückgesetzt, damit es wieder wie im Hauptmenü aussieht. Der ausgewählte Dart bleibt aber ausgewählt
     back_to_menu_button.enabled = False
@@ -115,7 +135,7 @@ def rotation_function_1(b):
 
 
 def rotation_function_2(b):
-    return 15-(0.5+b)**rotation_x_dart
+    return 15-(0.5+b)**angle
 
 
 def update_throw():
@@ -184,9 +204,10 @@ camera_positions_list = ["Frontal", "Seitwärts"]
 speed = 1
 i_speed = 0
 speed_list = [1.0, 0.1, 0.25, 0.5, 0.75]
-rotation_x_dart = 9
-i_rotation_x = 9
-
+angle = 9
+i_angle = 1
+angle_list = ["Flach", "Mittel", "Steil"]
+angle_list_values = [8, 8.7, 9.5]
 
 start_button = Button(
     text="Start",
@@ -297,12 +318,10 @@ camera_position_text = Text(
     origin=(0, 0.5),
 )
 
-speed_title = Text(
+speed_title = duplicate(
+    camera_position_title,
     text="Wiedergabegeschwindigkeit:",
-    parent=camera.ui,
     position=(-0.2, 0.22),
-    scale=1,
-    origin=(0, 0.5),
 )
 
 speed_r_button = Button(
@@ -329,12 +348,46 @@ speed_l_button = Button(
 
 speed_l_button.on_click = speed_l
 
-speed_text = Text(
+speed_text = duplicate(
+    camera_position_text,
     text="1.0",
+    position=(0.18, 0.22)
+)
+
+angle_title = duplicate(
+    camera_position_title,
+    text="Einschlagswinkel:",
+    position=(-0.2, 0.12)
+)
+
+angle_r_button = Button(
+    text="\n▶\n",
     parent=camera.ui,
-    position=(0.18, 0.22),
-    scale=1,
-    origin=(0, 0.5),
+    position=(0.3, 0.11),
+    color=color_buttons,
+    scale=(0.05),
+    text_size=2,
+    text_origin=(0, -0.4)
+)
+
+angle_r_button.on_click = angle_r
+
+angle_l_button = Button(
+    text="\n◀\n",
+    parent=camera.ui,
+    position=(0.06, 0.11),
+    color=color_buttons,
+    scale=(0.05),
+    text_size=2,
+    text_origin=(0, -0.4)
+)
+
+angle_l_button.on_click = angle_l
+
+angle_text = duplicate(
+    camera_position_text,
+    text="Mittel",
+    position=(0.18, 0.12)
 )
 
 back_to_menu_button = Button(
@@ -432,7 +485,10 @@ main_menu_entities = [start_button, settings_button,
 main_menu_entities += darts_list
 
 settings_entities = [settings_title, camera_position_r_button,
-                     camera_position_l_button, back_to_menu_button, camera_position_title, camera_position_text, speed_r_button, speed_l_button, speed_title, speed_text]
+                     camera_position_l_button, back_to_menu_button,
+                     camera_position_title, camera_position_text,
+                     speed_r_button, speed_l_button, speed_title, speed_text,
+                     angle_title, angle_r_button, angle_l_button, angle_text]
 for y in settings_entities:
     y.enabled = False
 
