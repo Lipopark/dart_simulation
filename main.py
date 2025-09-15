@@ -1,6 +1,7 @@
 from ursina import Ursina, Entity, Text, Button, Vec3, camera, window, lerp, rgb, print_on_screen
 from ursina.shaders import *
 import math
+from ursina import *
 
 
 def main_menu():
@@ -103,6 +104,39 @@ def back_to_menu():
     main_menu()
 
 
+def curve_function(b):
+    pos = lerp(start_pos, target_pos, b)
+    pos.y += 0.1 * math.sin(b * math.pi)
+    return pos
+
+
+def rotation_function_1(b):
+    return 28*b
+
+
+def rotation_function_2(b):
+    return 15-(0.5+b)**rotation_x_dart
+
+
+def update_throw():
+    global b
+    if b <= 0.5:
+        selected_dart.position = curve_function(b)
+        selected_dart.rotation_x = rotation_function_1(b)
+        b += speed / 20
+
+    elif b <= 1:
+        selected_dart.position = curve_function(b)
+        selected_dart.rotation_x = rotation_function_2(b)
+        b += speed / 20
+
+    else:
+        selected_dart.position = curve_function(b=1)
+        selected_dart.rotation_x = rotation_function_2(b=1)
+        selected_dart.update = False
+        print(selected_dart.rotation_x)
+
+
 def start():
     # Alle Menu Entities werden deaktiviert
     for y in main_menu_entities:
@@ -123,27 +157,9 @@ def start():
     back_to_menu_button.enabled = True
 
     # Definition für Flugkurve
-    def curve_function(b):
-        pos = lerp(start_pos, target_pos, b)
-        pos.y += 0.1 * math.sin(b * math.pi)
-        return pos
-
-    start_pos = Vec3(0.12, 0.112, -19)
-    target_pos = Vec3(0, 0.112, -16.79)
     global b
     b = 0
-
-    def update():
-        global b
-        if b <= 1:
-            selected_dart.position = curve_function(b)
-            b += speed / 20
-
-        else:
-            selected_dart.position = curve_function(b=1)
-            selected_dart.update = False
-
-    selected_dart.update = update
+    selected_dart.update = update_throw
 
 
 app = Ursina(
@@ -158,6 +174,9 @@ Text.resolution = 200
 # EditorCamera()
 window.fullscreen = True
 
+b = 0
+start_pos = Vec3(0.12, 0.112, -19)
+target_pos = Vec3(0, 0.112, -16.79)
 color_buttons = rgb(112/255, 146/255, 190/255)
 i_selected_dart = 0
 i_camera_position = 0
@@ -165,6 +184,9 @@ camera_positions_list = ["Frontal", "Seitwärts"]
 speed = 1
 i_speed = 0
 speed_list = [1.0, 0.1, 0.25, 0.5, 0.75]
+rotation_x_dart = 9
+i_rotation_x = 9
+
 
 start_button = Button(
     text="Start",
