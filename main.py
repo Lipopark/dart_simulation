@@ -191,8 +191,10 @@ camera.position = 0, 0, -19.4
 Entity.default_shader = lit_with_shadows_shader
 Text.default_font = r"fonts\arial_unicode_ms_bold.otf"
 Text.resolution = 200
-# EditorCamera()
+EditorCamera()
 window.fullscreen = True
+
+settings_entities = []
 
 b = 0
 start_pos = Vec3(0.12, 0.112, -19)
@@ -404,8 +406,6 @@ back_to_menu_button.on_click = back_to_menu
 
 board = Entity(
     model=r"models_compressed\board\board.obj",
-    # model="board.blend",
-    # texture=r"\models\board\board_picture.jpg",
     scale=(1),
     rotation=(0, 90, 0),
     position=(0, 0, -16.74),
@@ -416,7 +416,6 @@ board.enabled = False
 
 dart1 = Entity(
     model=r"models_compressed\darts\dart1\dart1.obj",
-    # model="dart1_copy_test.blend",
     scale=(100),
     rotation=(-10, 25, 20),
     position=(0, 0.2, 0),
@@ -425,14 +424,11 @@ dart1 = Entity(
 
 dart2 = Entity(
     model=r"models_compressed\darts\dart2\dart2.obj",
-    # model="dart2_copy_test.blend",
     scale=(100),
     rotation=(-10, 25, 20),
     position=(7, 0.2, 0),
     collider="box"
 )
-
-# Anzeigeeinstellung
 
 
 def input(key):
@@ -480,19 +476,24 @@ def input(key):
 
 
 darts_list = [dart1, dart2]
+selected_dart = darts_list[0]
+
+light = DirectionalLight(position=Vec3(-1, 2, -1))
+
 main_menu_entities = [start_button, settings_button,
                       quit_button, switch_r_button, switch_l_button]
 main_menu_entities += darts_list
 
-settings_entities = [settings_title, camera_position_r_button,
-                     camera_position_l_button, back_to_menu_button,
-                     camera_position_title, camera_position_text,
-                     speed_r_button, speed_l_button, speed_title, speed_text,
-                     angle_title, angle_r_button, angle_l_button, angle_text]
+settings_entities_add = [settings_title, camera_position_r_button,
+                         camera_position_l_button, back_to_menu_button,
+                         camera_position_title, camera_position_text,
+                         speed_r_button, speed_l_button, speed_title, speed_text,
+                         angle_title, angle_r_button, angle_l_button, angle_text]
+
+settings_entities += settings_entities_add
+
 for y in settings_entities:
     y.enabled = False
-
-selected_dart = darts_list[0]
 
 main_menu()
 
