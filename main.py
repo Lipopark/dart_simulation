@@ -145,11 +145,6 @@ def update_throw():
         selected_dart.rotation_x = rotation_function_1(b)
         b += speed / 20
 
-    # elif b <= 1:
-    #    selected_dart.position = curve_function(b)
-    #    selected_dart.rotation_x = rotation_function_2(b)
-    #    b += speed / 20
-
     else:
         selected_dart.position = curve_function(b=1)
         selected_dart.rotation_x = rotation_function_1(b=1)
