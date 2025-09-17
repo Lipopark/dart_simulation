@@ -131,7 +131,7 @@ def curve_function(b):
 
 
 def rotation_function_1(b):
-    return 28*b
+    return -172.917 * b**3 + 174.167 * b**2-22.25 * b+2
 
 
 def rotation_function_2(b):
@@ -140,19 +140,19 @@ def rotation_function_2(b):
 
 def update_throw():
     global b
-    if b <= 0.5:
+    if b <= 1:
         selected_dart.position = curve_function(b)
         selected_dart.rotation_x = rotation_function_1(b)
         b += speed / 20
 
-    elif b <= 1:
-        selected_dart.position = curve_function(b)
-        selected_dart.rotation_x = rotation_function_2(b)
-        b += speed / 20
+    # elif b <= 1:
+    #    selected_dart.position = curve_function(b)
+    #    selected_dart.rotation_x = rotation_function_2(b)
+    #    b += speed / 20
 
     else:
         selected_dart.position = curve_function(b=1)
-        selected_dart.rotation_x = rotation_function_2(b=1)
+        selected_dart.rotation_x = rotation_function_1(b=1)
         selected_dart.update = False
         print(selected_dart.rotation_x)
 
@@ -191,7 +191,7 @@ camera.position = 0, 0, -19.4
 Entity.default_shader = lit_with_shadows_shader
 Text.default_font = r"fonts\arial_unicode_ms_bold.otf"
 Text.resolution = 200
-EditorCamera()
+# EditorCamera()
 window.fullscreen = True
 
 settings_entities = []
