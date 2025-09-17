@@ -129,27 +129,32 @@ def curve_function(b):
     pos.y += 0.1 * math.sin(b * math.pi)
     return pos
 
-
-def rotation_function_1(b):
-    return -172.917 * b**3 + 174.167 * b**2-22.25 * b+2
+# Steckwinkel: Flach: 5; Mittel; 14; 23;
 
 
-def rotation_function_2(b):
-    return 15-(0.5+b)**angle
+def rotation_function_medium(b):
+    return -141.667 * b**3 + 136.667 * b**2 - 11 * b + 2
 
 
-def update_throw():
+def rotation_function_flat(b):
+    return -85.417 * b**3 + 69.167 * b**2 + 9.25 * b + 2
+
+
+def rotation_function_steep(b):
+    return -197.917 * b**3 + 204.167 * b**2 - 31.25 * b + 2
+
+
+def update_throw_medium():
     global b
     if b <= 1:
         selected_dart.position = curve_function(b)
-        selected_dart.rotation_x = rotation_function_1(b)
+        selected_dart.rotation_x = rotation_function_medium(b)
         b += speed / 20
 
     else:
         selected_dart.position = curve_function(b=1)
-        selected_dart.rotation_x = rotation_function_1(b=1)
+        selected_dart.rotation_x = rotation_function_medium(b=1)
         selected_dart.update = False
-        print(selected_dart.rotation_x)
 
 
 def start():
@@ -174,7 +179,7 @@ def start():
     # Definition für Flugkurve
     global b
     b = 0
-    selected_dart.update = update_throw
+    selected_dart.update = update_throw_medium
 
 
 app = Ursina(
