@@ -1,7 +1,6 @@
-from ursina import Ursina, Entity, Text, Button, Vec3, camera, window, lerp, rgb, print_on_screen
-from ursina.shaders import *
+from ursina import Ursina, Entity, Text, Button, Vec3, DirectionalLight, camera, window, duplicate, lerp, rgb, print_on_screen
+from ursina.shaders import lit_with_shadows_shader
 import math
-from ursina import *
 
 
 def main_menu():
