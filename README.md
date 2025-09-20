@@ -14,7 +14,7 @@ Um das Programm zu starten müssen Python und ursina engine installiert sein.
 python -m pip install ursina
 ```
 
-Sind Python und ursina engine installiert, kann das Programm durch Ausführung der main.py gestartet werden. Dafür im Hauptverzeichnis die Konsole starten und folgenden Befehl einfügen:
+Sind Python und ursina engine installiert, kann das Programm durch Ausführung der main.py gestartet werden. Dafür im Hauptverzeichnis ein Terminal öffnen und folgenden Befehl einfügen:
 
 ```python
 python main.py
