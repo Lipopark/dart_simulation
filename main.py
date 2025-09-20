@@ -94,7 +94,7 @@ def angle_r():
     if i_angle > 2:
         i_angle = 0
     angle_text.text = angle_list[i_angle]
-    angle = angle_list_values[i_angle]
+    angle = angle_list[i_angle]
 
 
 def angle_l():
@@ -104,7 +104,7 @@ def angle_l():
     if i_angle < 0:
         i_angle = 2
     angle_text.text = angle_list[i_angle]
-    angle = angle_list_values[i_angle]
+    angle = angle_list[i_angle]
 
 
 def back_to_menu():
@@ -131,17 +131,33 @@ def curve_function(b):
 
 # Steckwinkel: Flach: 5; Mittel; 14; 23;
 
-
-def rotation_function_medium(b):
-    return -141.667 * b**3 + 136.667 * b**2 - 11 * b + 2
+# Die verschiedenen Funktionen für die Rotation das Darts auf der x-Achse (nach hinten/vorne Kippen des Darts)
 
 
 def rotation_function_flat(b):
     return -85.417 * b**3 + 69.167 * b**2 + 9.25 * b + 2
 
 
+def rotation_function_medium(b):
+    return -141.667 * b**3 + 136.667 * b**2 - 11 * b + 2
+
+
 def rotation_function_steep(b):
     return -197.917 * b**3 + 204.167 * b**2 - 31.25 * b + 2
+
+
+def update_throw_flat():
+    global b
+    if b <= 1:
+        selected_dart.position = curve_function(b)
+        selected_dart.rotation_x = rotation_function_flat(b)
+        selected_dart.rotation_z -= speed * 50
+        b += speed / 20
+
+    else:
+        selected_dart.position = curve_function(b=1)
+        selected_dart.rotation_x = rotation_function_flat(b=1)
+        selected_dart.update = False
 
 
 def update_throw_medium():
@@ -149,11 +165,26 @@ def update_throw_medium():
     if b <= 1:
         selected_dart.position = curve_function(b)
         selected_dart.rotation_x = rotation_function_medium(b)
+        selected_dart.rotation_z -= speed * 50
         b += speed / 20
 
     else:
         selected_dart.position = curve_function(b=1)
         selected_dart.rotation_x = rotation_function_medium(b=1)
+        selected_dart.update = False
+
+
+def update_throw_steep():
+    global b
+    if b <= 1:
+        selected_dart.position = curve_function(b)
+        selected_dart.rotation_x = rotation_function_steep(b)
+        selected_dart.rotation_z -= speed * 50
+        b += speed / 20
+
+    else:
+        selected_dart.position = curve_function(b=1)
+        selected_dart.rotation_x = rotation_function_steep(b=1)
         selected_dart.update = False
 
 
@@ -179,7 +210,13 @@ def start():
     # Definition für Flugkurve
     global b
     b = 0
-    selected_dart.update = update_throw_medium
+
+    if i_angle == 0:
+        selected_dart.update = update_throw_flat
+    elif i_angle == 1:
+        selected_dart.update = update_throw_medium
+    elif i_angle == 2:
+        selected_dart.update = update_throw_steep
 
 
 app = Ursina(
@@ -209,7 +246,6 @@ speed_list = [1.0, 0.1, 0.25, 0.5, 0.75]
 angle = 9
 i_angle = 1
 angle_list = ["Flach", "Mittel", "Steil"]
-angle_list_values = [8, 8.7, 9.5]
 
 start_button = Button(
     text="Start",
