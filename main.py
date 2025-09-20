@@ -209,14 +209,18 @@ def start():
 
     # Definition für Flugkurve
     global b
+    global target_pos
     b = 0
+    target_pos = Vec3(0.002, 0.113, -16.79)
 
     if i_angle == 0:
         selected_dart.update = update_throw_flat
+        target_pos.y -= 0.008
     elif i_angle == 1:
         selected_dart.update = update_throw_medium
     elif i_angle == 2:
         selected_dart.update = update_throw_steep
+        target_pos.y += 0.0087
 
 
 app = Ursina(
@@ -235,7 +239,6 @@ settings_entities = []
 
 b = 0
 start_pos = Vec3(0.12, 0.112, -19)
-target_pos = Vec3(0, 0.112, -16.79)
 color_buttons = rgb(112/255, 146/255, 190/255)
 i_selected_dart = 0
 i_camera_position = 0
@@ -477,6 +480,9 @@ def input(key):
 
     if key == "w":
         camera.position += camera.forward
+
+    if key == "s":
+        camera.position += camera.back
 
     if key == "a":
         camera.position += camera.left
