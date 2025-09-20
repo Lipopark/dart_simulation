@@ -17,5 +17,5 @@ python -m pip install ursina
 Sind Python und ursina engine installiert, kann das Programm durch Ausführung der main.py gestartet werden. Dafür im Hauptverzeichnis die Konsole starten und folgenden Befehl einfügen:
 
 ```python
-python3 main.py
+python main.py
 ```
