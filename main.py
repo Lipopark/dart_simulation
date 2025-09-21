@@ -88,22 +88,18 @@ def speed_l():
 
 def angle_r():
     global i_angle
-    global angle
     i_angle += 1
     if i_angle > 2:
         i_angle = 0
     angle_text.text = angle_list[i_angle]
-    angle = angle_list[i_angle]
 
 
 def angle_l():
     global i_angle
-    global angle
     i_angle -= 1
     if i_angle < 0:
         i_angle = 2
     angle_text.text = angle_list[i_angle]
-    angle = angle_list[i_angle]
 
 
 def back_to_menu():
@@ -212,6 +208,9 @@ def start():
     b = 0
     target_pos = Vec3(0.002, 0.113, -16.79)
 
+    if i_target == 0:
+        target_pos = Vec3(0.0035, 0.012, -16.79)
+
     if i_angle == 0:
         selected_dart.update = update_throw_flat
         target_pos.y -= 0.008
@@ -245,9 +244,9 @@ camera_positions_list = ["Frontal", "Seitwärts"]
 speed = 1
 i_speed = 0
 speed_list = [1.0, 0.1, 0.25, 0.5, 0.75]
-angle = 9
 i_angle = 1
 angle_list = ["Flach", "Mittel", "Steil"]
+i_target = 0
 
 start_button = Button(
     text="Start",
@@ -430,6 +429,110 @@ angle_text = duplicate(
     position=(0.18, 0.12)
 )
 
+target_title = duplicate(
+    camera_position_title,
+    text="Zielfeld:",
+    position=(-0.3, 0.02),
+)
+
+bull_button = Button(
+    text="Bull's eye",
+    parent=target_title,
+    position=(0.135, -0.01),
+    color=color_buttons,
+    scale=(0.14, 0.05),
+    text_origin=(0, -0.1)
+)
+
+bull_button.color = bull_button.color.tint(-0.2)
+bull_button._collision = False
+
+t20_button = Button(
+    text="T20",
+    parent=target_title,
+    position=(0.26, -0.01),
+    color=color_buttons,
+    scale=(0.07, 0.05),
+    text_origin=(0, -0.1)
+)
+
+t19_button = Button(
+    text="T19",
+    parent=target_title,
+    position=(0, -0.01),
+    color=color_buttons,
+    scale=(0.07, 0.05),
+    text_origin=(0, -0.1)
+)
+
+t19_button.x = t20_button.x + 0.09
+
+t18_button = Button(
+    text="T18",
+    parent=target_title,
+    position=(0, -0.01),
+    color=color_buttons,
+    scale=(0.07, 0.05),
+    text_origin=(0, -0.1)
+)
+
+t18_button.x = t19_button.x + 0.09
+
+d20_button = Button(
+    text="D20",
+    parent=target_title,
+    position=(0, -0.01),
+    color=color_buttons,
+    scale=(0.07, 0.05),
+    text_origin=(0, -0.1)
+)
+
+d20_button.x = t18_button.x + 0.09
+
+d16_button = Button(
+    text="D16",
+    parent=target_title,
+    position=(0, -0.01),
+    color=color_buttons,
+    scale=(0.07, 0.05),
+    text_origin=(0, -0.1)
+)
+
+d16_button.x = d20_button.x + 0.09
+
+d12_button = Button(
+    text="D12",
+    parent=target_title,
+    position=(0, -0.01),
+    color=color_buttons,
+    scale=(0.07, 0.05),
+    text_origin=(0, -0.1)
+)
+
+d12_button.x = d16_button.x + 0.09
+
+d10_button = Button(
+    text="D10",
+    parent=target_title,
+    position=(0, -0.01),
+    color=color_buttons,
+    scale=(0.07, 0.05),
+    text_origin=(0, -0.1)
+)
+
+d10_button.x = d12_button.x + 0.09
+
+d8_button = Button(
+    text="D8",
+    parent=target_title,
+    position=(0, -0.01),
+    color=color_buttons,
+    scale=(0.07, 0.05),
+    text_origin=(0, -0.1)
+)
+
+d8_button.x = d10_button.x + 0.09
+
 back_to_menu_button = Button(
     text="Zurück zum\nHauptmenü",
     parent=camera.ui,
@@ -529,9 +632,15 @@ settings_entities_add = [settings_title, camera_position_r_button,
                          camera_position_l_button, back_to_menu_button,
                          camera_position_title, camera_position_text,
                          speed_r_button, speed_l_button, speed_title, speed_text,
-                         angle_title, angle_r_button, angle_l_button, angle_text]
+                         angle_title, angle_r_button, angle_l_button, angle_text,
+                         target_title, bull_button, t20_button, t19_button, t18_button,
+                         d20_button, d16_button, d12_button, d10_button, d8_button]
 
 settings_entities += settings_entities_add
+
+target_buttons_list = [
+    bull_button, t20_button, t19_button, t18_button, d20_button, d16_button, d12_button, d10_button, d8_button
+]
 
 for y in settings_entities:
     y.enabled = False
