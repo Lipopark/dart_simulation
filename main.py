@@ -102,6 +102,14 @@ def angle_l():
     angle_text.text = angle_list[i_angle]
 
 
+def function_onclick(target_button):
+    for y in target_buttons_list:
+        y.collision = True
+        y.color = color_buttons
+        target_button.collision = False
+        target_button.color = color_buttons.tint(-0.2)
+
+
 def back_to_menu():
     # Alles wird zurückgesetzt, damit es wieder wie im Hauptmenü aussieht. Der ausgewählte Dart bleibt aber ausgewählt
     back_to_menu_button.enabled = False
@@ -247,6 +255,7 @@ speed_list = [1.0, 0.1, 0.25, 0.5, 0.75]
 i_angle = 1
 angle_list = ["Flach", "Mittel", "Steil"]
 i_target = 0
+target_buttons_list = []
 
 start_button = Button(
     text="Start",
@@ -456,6 +465,8 @@ t20_button = Button(
     text_origin=(0, -0.1)
 )
 
+t20_button.on_click = lambda: function_onclick(t20_button)
+
 t19_button = Button(
     text="T19",
     parent=target_title,
@@ -638,9 +649,11 @@ settings_entities_add = [settings_title, camera_position_r_button,
 
 settings_entities += settings_entities_add
 
-target_buttons_list = [
+target_buttons_list_add = [
     bull_button, t20_button, t19_button, t18_button, d20_button, d16_button, d12_button, d10_button, d8_button
 ]
+
+target_buttons_list += target_buttons_list_add
 
 for y in settings_entities:
     y.enabled = False
