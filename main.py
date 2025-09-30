@@ -102,12 +102,14 @@ def angle_l():
     angle_text.text = angle_list[i_angle]
 
 
-def function_onclick(target_button):
+def target_select(target_button, target_pos_value):
+    global target_pos
     for y in target_buttons_list:
         y.collision = True
         y.color = color_buttons
-        target_button.collision = False
-        target_button.color = color_buttons.tint(-0.2)
+    target_button.collision = False
+    target_button.color = color_buttons.tint(-0.2)
+    target_pos = target_pos_value
 
 
 def back_to_menu():
@@ -214,10 +216,6 @@ def start():
     global b
     global target_pos
     b = 0
-    target_pos = Vec3(0.002, 0.113, -16.79)
-
-    if i_target == 0:
-        target_pos = Vec3(0.0035, 0.012, -16.79)
 
     if i_angle == 0:
         selected_dart.update = update_throw_flat
@@ -254,8 +252,8 @@ i_speed = 0
 speed_list = [1.0, 0.1, 0.25, 0.5, 0.75]
 i_angle = 1
 angle_list = ["Flach", "Mittel", "Steil"]
-i_target = 0
 target_buttons_list = []
+target_pos = Vec3(0.0035, 0.012, -16.79)
 
 start_button = Button(
     text="Start",
@@ -455,6 +453,9 @@ bull_button = Button(
 
 bull_button.color = bull_button.color.tint(-0.2)
 bull_button._collision = False
+bull_button.on_click = lambda: target_select(
+    bull_button, Vec3(0.0035, 0.012, -16.79))
+
 
 t20_button = Button(
     text="T20",
@@ -465,7 +466,8 @@ t20_button = Button(
     text_origin=(0, -0.1)
 )
 
-t20_button.on_click = lambda: function_onclick(t20_button)
+t20_button.on_click = lambda: target_select(
+    t20_button, Vec3(0.0035, 0.114, -16.79))
 
 t19_button = Button(
     text="T19",
@@ -477,6 +479,8 @@ t19_button = Button(
 )
 
 t19_button.x = t20_button.x + 0.09
+t19_button.on_click = lambda: target_select(
+    t19_button, Vec3(-0.027, -0.084, -16.79))
 
 t18_button = Button(
     text="T18",
@@ -488,6 +492,9 @@ t18_button = Button(
 )
 
 t18_button.x = t19_button.x + 0.09
+t18_button.on_click = lambda: target_select(
+    t18_button, Vec3(0.061, 0.095, -16.79))
+
 
 d20_button = Button(
     text="D20",
@@ -499,6 +506,9 @@ d20_button = Button(
 )
 
 d20_button.x = t18_button.x + 0.09
+d20_button.on_click = lambda: target_select(
+    d20_button, Vec3(0.0035, 0.178, -16.79))
+
 
 d16_button = Button(
     text="D16",
@@ -510,6 +520,9 @@ d16_button = Button(
 )
 
 d16_button.x = d20_button.x + 0.09
+d16_button.on_click = lambda: target_select(
+    d16_button, Vec3(-0.13, -0.084, -16.79))
+
 
 d12_button = Button(
     text="D12",
@@ -521,6 +534,9 @@ d12_button = Button(
 )
 
 d12_button.x = d16_button.x + 0.09
+d12_button.on_click = lambda: target_select(
+    d12_button, Vec3(-0.094, 0.142, -16.79))
+
 
 d10_button = Button(
     text="D10",
@@ -532,6 +548,9 @@ d10_button = Button(
 )
 
 d10_button.x = d12_button.x + 0.09
+d10_button.on_click = lambda: target_select(
+    d10_button, Vec3(0.16, -0.04, -16.79))
+
 
 d8_button = Button(
     text="D8",
@@ -543,6 +562,9 @@ d8_button = Button(
 )
 
 d8_button.x = d10_button.x + 0.09
+d8_button.on_click = lambda: target_select(
+    d8_button, Vec3(-0.151, -0.04, -16.79))
+
 
 back_to_menu_button = Button(
     text="Zurück zum\nHauptmenü",
