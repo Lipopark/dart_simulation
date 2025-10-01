@@ -221,7 +221,7 @@ def start():
     global b
     global target_pos
     b = 0
-    target_pos = copy.copy(target_pos_list[0])
+    target_pos = copy.copy(target_pos_list[i_target])
 
     if i_angle == 0:
         selected_dart.update = update_throw_flat
