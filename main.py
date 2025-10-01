@@ -5,6 +5,7 @@ import copy
 
 
 def main_menu():
+    global main_menu_active
     global darts_list
     # Ist der erste Dart ausgewählt, wird der Button nach links deaktiviert
     if i_selected_dart == 0:
@@ -14,6 +15,7 @@ def main_menu():
     for y in main_menu_entities:
         y.enabled = True
 
+    main_menu_active = True
     # Beim Start wird standartmässig der erste Dart angezeigt
     darts_list[0]
 
@@ -199,6 +201,9 @@ def update_throw_steep():
 
 
 def start():
+    # Kamera wird zurückgesetzt
+    camera.position = (0, 0, -19.4)
+    camera.rotation = (0, 0, 0)
     # Alle Menu Entities werden deaktiviert
     for y in main_menu_entities:
         y.enabled = False
@@ -220,6 +225,8 @@ def start():
     # Definition für Flugkurve
     global b
     global target_pos
+    global main_menu_active
+    main_menu_active = False
     b = 0
     target_pos = copy.copy(target_pos_list[i_target])
 
@@ -247,6 +254,7 @@ window.fullscreen = True
 
 settings_entities = []
 
+main_menu_active = False
 b = 0
 start_pos = Vec3(0.12, 0.112, -19)
 color_buttons = rgb(112/255, 146/255, 190/255)
@@ -671,6 +679,21 @@ def input(key):
 
     if key == "right arrow" and switch_r_button.collision == True:
         switch_r()
+
+    if key == "scroll up" and camera.z < -9 and main_menu_active == True:
+        camera.position += camera.forward
+
+    if key == "scroll down" and camera.z >= -19 and main_menu_active == True:
+        camera.position += camera.back
+
+    if key == "scroll up" and camera.z < -17 and main_menu_active == False and i_camera_position == 0 and i_target == 0:
+        camera.position += camera.forward * 0.1
+
+    if key == "scroll up" and camera.z < -17.8 and main_menu_active == False and i_camera_position == 0 and i_target != 0:
+        camera.position += camera.forward * 0.1
+
+    if key == "scroll down" and camera.z >= -19.3 and main_menu_active == False and i_camera_position == 0:
+        camera.position += camera.back * 0.1
 
 
 darts_list = [dart1, dart2]
