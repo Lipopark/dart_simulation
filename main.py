@@ -1,6 +1,7 @@
 from ursina import Ursina, Entity, Text, Button, Vec3, DirectionalLight, camera, window, duplicate, lerp, rgb, print_on_screen
 from ursina.shaders import lit_with_shadows_shader
 import math
+import copy
 
 
 def main_menu():
@@ -220,7 +221,7 @@ def start():
     global b
     global target_pos
     b = 0
-    target_pos = target_pos_list[0]
+    target_pos = copy.copy(target_pos_list[0])
 
     if i_angle == 0:
         selected_dart.update = update_throw_flat
