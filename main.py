@@ -104,6 +104,8 @@ def angle_l():
         i_angle = 2
     angle_text.text = angle_list[i_angle]
 
+# Funktion für die Auswahl des Zielfelds
+
 
 def target_select(target_button):
     global target_pos
@@ -230,6 +232,7 @@ def start():
     b = 0
     target_pos = copy.copy(target_pos_list[i_target])
 
+    # Flugkurve wird bestimmt, je nachdem welcher Einsteckwinkel gewählt wird
     if i_angle == 0:
         selected_dart.update = update_throw_flat
         target_pos.y -= 0.008
@@ -635,33 +638,6 @@ dart2 = Entity(
 
 
 def input(key):
-    if key == "t":
-        print_on_screen("rotate")
-        camera.rotation_y += 90
-
-    if key == "p":
-        print_on_screen(camera.position)
-
-    if key == "w":
-        camera.position += camera.forward
-
-    if key == "s":
-        camera.position += camera.back
-
-    if key == "a":
-        camera.position += camera.left
-
-    if key == "d":
-        camera.position += camera.right
-
-    if key == "k":
-        camera.position = (-4, 0, -17.8)
-        camera.rotation = (0, 90, 0)
-
-    if key == "r":
-        camera.position = (0, 0, -19.4)
-        camera.rotation = (0, 0, 0)
-
     if key == "space" and start_button.enabled == True:
         start()
 
