@@ -5,4 +5,7 @@ Dieses Programm beinhaltet zwei Dartpfeilmodelle, welche mittels Simulation auf 
 ## Nutzung
 
 Windows 11:
-Unter Windows 11 kann das Programm durch Ausführen der main.exe gestartet werden
+
+Für die Nutzung des Programms muss [Python 3.12 oder neuer](https://www.python.org/downloads/) heruntergeladen werden.
+
+Dann kann das Programm durch Ausführen der main.exe gestartet werden.
