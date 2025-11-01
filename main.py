@@ -248,8 +248,8 @@ app = Ursina(
 )
 
 camera.position = 0, 0, -19.4
-# Shader und die Schriftanzeige werden gesetzt
-Entity.default_shader = lit_with_shadows_shader
+# Schriftanzeige wird gesetzt
+
 Text.default_font = r"fonts\arial_unicode_ms_bold.otf"
 Text.resolution = 200
 # EditorCamera()
@@ -676,6 +676,10 @@ darts_list = [dart1, dart2]
 selected_dart = darts_list[0]
 
 light = DirectionalLight(position=Vec3(-1, 2, -1))
+for y in darts_list:
+    y.shader = lit_with_shadows_shader
+
+board.shader = lit_with_shadows_shader
 
 main_menu_entities = [start_button, settings_button,
                       quit_button, switch_r_button, switch_l_button]
