@@ -39,6 +39,8 @@ def switch_r():
     switch_l_button.collision = True
     if i_selected_dart == 1:
         switch_r_button.collision = False
+    if switch_r_info_text.enabled == True:
+        switch_r_info_text.enabled = False
 
 
 def switch_l():
@@ -261,6 +263,7 @@ main_menu_active = False
 b = 0
 start_pos = Vec3(0.12, 0.112, -19)
 color_buttons = rgb(112/255, 146/255, 190/255)
+info_yellow = rgb(253/255, 233/255, 22/255)
 i_selected_dart = 0
 i_camera_position = 0
 camera_positions_list = ["Frontal", "Seitwärts"]
@@ -346,6 +349,24 @@ switch_l_button = Button(
 )
 
 switch_l_button.on_click = switch_l
+
+
+switch_r_info_text = Text(
+    parent=switch_r_button,
+    text="Dartpfeil wechseln\n|",
+    position=(0, 1.3, -0.1),
+    scale=(10, 10),
+    origin=(0, 0.5),
+    color=info_yellow
+)
+
+switch_r_info_arrow = Text(
+    parent=switch_r_info_text,
+    text="▼",
+    scale=(2),
+    position=(-0.015, -0.039, 0),
+    color=info_yellow
+)
 
 settings_title = Text(
     text="Einstellungen",
