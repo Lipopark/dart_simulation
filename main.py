@@ -246,7 +246,7 @@ def start():
 
 
 app = Ursina(
-    title="Dartwurf Simulation"
+    title="DartVista"
 )
 
 camera.position = 0, 0, -19.4
