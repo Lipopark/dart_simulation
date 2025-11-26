@@ -2,7 +2,7 @@
 
 Dieses Programm beinhaltet zwei Dartpfeilmodelle, welche mittels Simulation auf ein Board geschossen werden können. Die Animation kann vom Nutzer beliebig angepasst werden.
 
-## Nutzung
+## Installation
 
 Windows 11:
 
@@ -12,4 +12,14 @@ Am besten überprüfen Sie, ob Python richtig installiert wurde:
 python --version
 ```
 
-Nachdem Python installiert wurde, kann das Programm durch Ausführen der main.exe gestartet werden.
+Nachdem Python installiert wurde, muss Ursina installiert werden.
+
+```bash
+python -m pip install ursina
+```
+
+Nun kann das Programm durch Ausführen der main.exe gestartet werden
+
+## Lizenz
+
+[MIT](https://choosealicense.com/licenses/mit/)
